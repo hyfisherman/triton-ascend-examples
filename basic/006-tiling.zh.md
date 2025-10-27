@@ -44,6 +44,7 @@ def gather_dim1_kernel(
         BLOCK_K: tl.constexpr,
 ):
     pid_b = tl.program_id(0)  # 1 block per batch row
+-   # GPU上原有Triton算子写法
 -   pid_k = tl.program_id(1)  # 1 block per K-tile
 
 -   k_off = pid_k * BLOCK_K + tl.arange(0, BLOCK_K)
@@ -55,6 +56,7 @@ def gather_dim1_kernel(
 
 -   tl.store(out_ptr + pid_b * stride_ob + k_off * stride_ok, x_val, mask=mask)
 
++   # NPU亲和写法
 +   b_idx = pid_b * BLOCK_B + tl.arange(0, BLOCK_B)
 +   b_mask = b_idx < B
 

@@ -1,7 +1,8 @@
 # 001-vector_add.py说明
 
 ## 功能
-以vector_add为例说明npu上int类型的vector运算，使用int32比int64性能更优
+A2/A3代际，vector核不支持int64数据类型，在执行int64的Vector操作时，会转化为标量运算，影响性能
+以vector_add为例说明npu上int类型的vector运算，使用int32比int64性能更优，在精度允许的情况下，建议使用int32，达成最优性能
 
 
 ## 差异点详解
